@@ -6,25 +6,33 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous">
     <title>Jarvis GPT</title>
+    <link rel="shortcut icon" sizes="32x32" href="/img/SENAI-AI-1.png">
 </head>
 <body>
-    <div class="prottipo">
-        <div class="div">
-            <img class="line" src="/img/Line 1.png" />
-            <div class="overlap-group"><div class="text-wrapper">microphone</div></div>
+    
+    <main>
+        <div class="sidebar"></div>
+        <section class="chat">
             
-            <div class="text-wrapper-2">Pergunte algo...
-                <input type="text" class="text-wrapper-2" name="nome" value="Pergunte algo...">
+            <img src="/img/SENAI-AI-1.png" alt="Jarvis">
+            <h1>SENAI GPT</h1>
+
+            <div class="pergunta">
+                <input type="text" name="prompt" id="prompt" placeholder="Pergunte algo...">
+                <button>
+                    <i class="fa fa-microphone"></i>
+                </button>
             </div>
             
-            <div class="overlap">
-                <img class="SENAI-AI" src="/img/SENAI-AI-1.png" />
-                <div class="text-wrapper-3">SENAI-GPT</div>
-            </div>
-            <img class="senai-logo" src="/img/senai-logo.png" />
-            <div class="rectangle"></div>
+            <img src="/img/senai-logo.png" alt="Logo do SENAI">
+            
+        </section>
+
+        <div>
+            <button id="dark-mode-toggle"><i class="fa fa-moon"></i></button>
         </div>
-    </div>
+        
+    </main>
     <script src="/js/script.js"></script>
 </body>
 </html>
