@@ -19,7 +19,6 @@ GetKey('openai', (key) => {
   openAIKey = key;
   openAIKey = openAIKey.replaceAll("!", "");
   openAIKey = openAIKey.replaceAll("@", "");
-  console.log(openAIKey); // "openai_key"
 });
 
 GetKey('microsoft', (key) => {
@@ -145,6 +144,8 @@ const CapturarVoz = () => {
 }
 
 const AtivarJarvis = () => {
+
+  BTN_microphone.click();
 
   var resultElement = document.getElementById('prompt');
 
