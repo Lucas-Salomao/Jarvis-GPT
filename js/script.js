@@ -17,7 +17,9 @@ let MicrosoftKey;
 
 GetKey('openai', (key) => {
   openAIKey = key;
-  console.log(openAIKey.replace("!","").replace("@",""));
+  openAIKey = openAIKey.replaceAll("!", "");
+  openAIKey = openAIKey.replaceAll("@", "");
+  console.log(openAIKey); // "openai_key"
 });
 
 GetKey('microsoft', (key) => {
