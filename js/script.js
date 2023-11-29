@@ -4,7 +4,7 @@ const BTN_microphone = document.getElementById('capture');
 let mode = "light";
 
 const GetKey = (service, callback) => {
-  fetch('../keys.json')
+  fetch('keys.json')
       .then(response => response.json())
       .then(data => {
           callback(data[service]);
