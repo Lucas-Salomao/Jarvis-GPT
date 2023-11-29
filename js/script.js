@@ -2,19 +2,26 @@ const endpoint = 'https://eastus.tts.speech.microsoft.com/cognitiveservices/v1';
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 const BTN_microphone = document.getElementById('capture');
 let mode = "light";
-let openai_key='';
-let microsoft_speech_service_key='';
 
-const getKey = (service)=>{
-  fetch('keys.json')
-  .then(response=>response.json())
-  .then(data =>{
-    return data[service]
-  })
-}
+const GetKey = (service, callback) => {
+  fetch('../keys.json')
+      .then(response => response.json())
+      .then(data => {
+          callback(data[service]);
+      })
+      .catch(error => console.error(error));
+};
 
-let openAIKey=getKey('openai');
-let MicrosoftKey=getKey('microsoft');
+let openAIKey;
+let MicrosoftKey;
+
+GetKey('openai', (key) => {
+  openAIKey = key;
+});
+
+GetKey('microsoft', (key) => {
+  MicrosoftKey = key;
+});
 
 darkModeToggle.addEventListener('click', () => {
   changeTheme();
