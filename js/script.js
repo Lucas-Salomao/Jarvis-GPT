@@ -155,7 +155,7 @@ const AtivarJarvis = () => {
   // Defina configurações para a instância
   recognition.continuous = true; // Permite que ele continue escutando
   recognition.interimResults = false; // Define para true se quiser resultados parciais
-  recognition.lang = window.navigator.language;
+  recognition.lang = "pt-BR";
 
   // Inicie o reconhecimento de voz
   recognition.start();
