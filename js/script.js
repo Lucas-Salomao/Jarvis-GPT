@@ -60,7 +60,7 @@ function textToSpeech(texto) {
       'User-Agent': 'curl',
     },
     body: `<speak version='1.0' xml:lang='pt-BR'>
-                <voice xml:lang='pt-BR' xml:gender='Female' name='pt-BR-AntonioNeural'>
+                <voice xml:lang='pt-BR' xml:gender='Male' name='pt-BR-HumbertoNeural'>
                  ${textoParaFala}
                 </voice>
             </speak>`,
@@ -104,7 +104,7 @@ const ConsultarOpenAI = async (pergunta) => {
         "content": pergunta
       }
     ],
-    "temperature": 0.2
+    "temperature": 2.0
   });
 
   var requestOptions = {
@@ -176,7 +176,6 @@ const AtivarJarvis = () => {
 
     // Verifique se a palavra "Jarvis" está no texto
     if (recognizedText.toLowerCase().includes('jarvis')) {
-      console.log("Jarvis detectado!");
       BTN_microphone.style.background = "green";
       // Comece a salvar a pergunta quando "Jarvis" é detectado
       let array_pergunta = recognizedText.toLowerCase().split('jarvis');
