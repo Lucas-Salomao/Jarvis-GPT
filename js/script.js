@@ -1,4 +1,4 @@
-const endpoint = 'https://eastus.tts.speech.microsoft.com/cognitiveservices/v1';
+const endpoint = 'https://eastus2.tts.speech.microsoft.com/cognitiveservices/v1';
 const darkModeToggle = document.getElementById('dark-mode-toggle');
 const BTN_microphone = document.getElementById('capture');
 let mode = "light";
@@ -19,12 +19,14 @@ GetKey('openai', (key) => {
   openAIKey = key;
   openAIKey = openAIKey.replaceAll("!", "");
   openAIKey = openAIKey.replaceAll("@", "");
+  console.log(openAIKey);
 });
 
 GetKey('microsoft', (key) => {
   MicrosoftKey = key;
   MicrosoftKey = MicrosoftKey.replaceAll("!", "");
   MicrosoftKey = MicrosoftKey.replaceAll("@", "");
+  console.log(MicrosoftKey);
 });
 
 darkModeToggle.addEventListener('click', () => {
@@ -168,13 +170,16 @@ const AtivarJarvis = () => {
 
     // Verifique o texto reconhecido
     const recognizedText = result[0].transcript;
+    console.log(recognizedText);
+
 
 
     // Verifique se a palavra "Jarvis" está no texto
-    if (recognizedText.toLowerCase().includes('alexa')) {
+    if (recognizedText.toLowerCase().includes('jarvis')) {
+      console.log("Jarvis detectado!");
       BTN_microphone.style.background = "green";
       // Comece a salvar a pergunta quando "Jarvis" é detectado
-      let array_pergunta = recognizedText.toLowerCase().split('alexa');
+      let array_pergunta = recognizedText.toLowerCase().split('jarvis');
       array_pergunta = array_pergunta[array_pergunta.length - 1];
 
       if (array_pergunta.toLowerCase().includes("trocar tema")) {
