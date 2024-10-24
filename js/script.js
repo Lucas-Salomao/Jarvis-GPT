@@ -23,6 +23,8 @@ GetKey('openai', (key) => {
 
 GetKey('microsoft', (key) => {
   MicrosoftKey = key;
+  MicrosoftKey = MicrosoftKey.replaceAll("!", "");
+  MicrosoftKey = MicrosoftKey.replaceAll("@", "");
 });
 
 darkModeToggle.addEventListener('click', () => {
