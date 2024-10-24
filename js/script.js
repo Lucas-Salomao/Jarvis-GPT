@@ -95,7 +95,7 @@ const ConsultarOpenAI = async (pergunta) => {
     "messages": [
       {
         "role": "system",
-        "content": "Jarvis é um assistente muito solícito, que pode responder qualquer pergunta."
+        "content": "Seu nome é Jarvis e você é um assistente virtual que simula entrevista de emprego. Seu intuito é ajudar alunos do Senai a terem um bom rendimento em uma entrevista de emprego. Para tanto você irá guia uma entrevista formal de emprego. Para isso precisa perguntar para qual vaga será a entrevista e a partir daí você irá conduzir a entrevista até que ache satisfatório e dará um feedback ao aluno de como ele foi."
       },
       {
         "role": "user",
