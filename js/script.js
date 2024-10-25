@@ -15,6 +15,9 @@ const GetKey = (service, callback) => {
 let openAIKey;
 let MicrosoftKey;
 
+// const openAIKey = process.env.OPENAI_API_KEY.replaceAll("!", "").replaceAll("@", "");
+// const MicrosoftKey = process.env.CONGNITIVE_SERVICE_API_KEY.replaceAll("!", "").replaceAll("@", "");
+
 GetKey('openai', (key) => {
   openAIKey = key;
   openAIKey = openAIKey.replaceAll("!", "");
@@ -90,21 +93,21 @@ const ConsultarOpenAI = async (pergunta) => {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", "Bearer "+openAIKey);
-  myHeaders.append("Cookie", "__cf_bm=XVKVf7Yld3UDpt7E5giIXHZ9WlRGFFT614a6doOA4oI-1701179759-0-AXsC4gsMCdBH2kRq+9t4uityhNlyHAJhlZSTdFzwqtYXUKGzCzs5KtQo7fMDsqTezOlKA79XM2meEDHQT2a/9sg=; _cfuvid=XIkS2NVGkFkOvc3TuI3ljFJLlXh1JV5EddshQcY1hlQ-1701179759298-0-604800000");
+  // myHeaders.append("Cookie", "__cf_bm=XVKVf7Yld3UDpt7E5giIXHZ9WlRGFFT614a6doOA4oI-1701179759-0-AXsC4gsMCdBH2kRq+9t4uityhNlyHAJhlZSTdFzwqtYXUKGzCzs5KtQo7fMDsqTezOlKA79XM2meEDHQT2a/9sg=; _cfuvid=XIkS2NVGkFkOvc3TuI3ljFJLlXh1JV5EddshQcY1hlQ-1701179759298-0-604800000");
 
   var raw = JSON.stringify({
-    "model": "ft:gpt-3.5-turbo-0613:personal::8PsmsY32",
+    "model": "gpt-4o-mini",
     "messages": [
       {
         "role": "system",
-        "content": "Seu nome é Jarvis e você é um assistente virtual que simula entrevista de emprego. Seu intuito é ajudar alunos do Senai a terem um bom rendimento em uma entrevista de emprego. Para tanto você irá guia uma entrevista formal de emprego. Para isso precisa perguntar para qual vaga será a entrevista e a partir daí você irá conduzir a entrevista até que ache satisfatório e dará um feedback ao aluno de como ele foi."
+        "content": "Seu nome é Nai e você é um assistente virtual que simula entrevista de emprego. Seu intuito é ajudar alunos do Senai a terem um bom rendimento em uma entrevista de emprego. Para tanto você irá guia uma entrevista formal de emprego. Para isso precisa perguntar para qual vaga será a entrevista e a partir daí você irá conduzir a entrevista até que ache satisfatório e dará um feedback ao aluno de como ele foi."
       },
       {
         "role": "user",
         "content": pergunta
       }
     ],
-    "temperature": 2.0
+    "temperature": 1.0
   });
 
   var requestOptions = {
@@ -175,10 +178,10 @@ const AtivarJarvis = () => {
 
 
     // Verifique se a palavra "Jarvis" está no texto
-    if (recognizedText.toLowerCase().includes('jarvis')) {
+    if (recognizedText.toLowerCase().includes('nai')) {
       BTN_microphone.style.background = "green";
       // Comece a salvar a pergunta quando "Jarvis" é detectado
-      let array_pergunta = recognizedText.toLowerCase().split('jarvis');
+      let array_pergunta = recognizedText.toLowerCase().split('nai');
       array_pergunta = array_pergunta[array_pergunta.length - 1];
 
       if (array_pergunta.toLowerCase().includes("trocar tema")) {
