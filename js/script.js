@@ -3,13 +3,16 @@ const darkModeToggle = document.getElementById('dark-mode-toggle');
 const BTN_microphone = document.getElementById('capture');
 let mode = "light";
 
+let contexto;
+let entrevistando = false;
+
 const GetKey = (service, callback) => {
   fetch('keys.json')
-      .then(response => response.json())
-      .then(data => {
-          callback(data[service]);
-      })
-      .catch(error => console.error(error));
+    .then(response => response.json())
+    .then(data => {
+      callback(data[service]);
+    })
+    .catch(error => console.error(error));
 };
 
 let openAIKey;
@@ -92,7 +95,7 @@ function textToSpeech(texto) {
 const ConsultarOpenAI = async (pergunta) => {
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
-  myHeaders.append("Authorization", "Bearer "+openAIKey);
+  myHeaders.append("Authorization", "Bearer " + openAIKey);
   // myHeaders.append("Cookie", "__cf_bm=XVKVf7Yld3UDpt7E5giIXHZ9WlRGFFT614a6doOA4oI-1701179759-0-AXsC4gsMCdBH2kRq+9t4uityhNlyHAJhlZSTdFzwqtYXUKGzCzs5KtQo7fMDsqTezOlKA79XM2meEDHQT2a/9sg=; _cfuvid=XIkS2NVGkFkOvc3TuI3ljFJLlXh1JV5EddshQcY1hlQ-1701179759298-0-604800000");
 
   var raw = JSON.stringify({
@@ -119,7 +122,12 @@ const ConsultarOpenAI = async (pergunta) => {
 
   fetch("https://api.openai.com/v1/chat/completions", requestOptions)
     .then(response => response.json())
-    .then(result => textToSpeech(result.choices[0].message.content))
+    .then(result => {
+      contexto = result.choices[0].message.content;
+      console.log(contexto);
+      textToSpeech(contexto);
+    })
+    // .then(result => textToSpeech(result.choices[0].message.content))
     .catch(error => console.log('error', error));
 }
 
@@ -176,27 +184,53 @@ const AtivarJarvis = () => {
     console.log(recognizedText);
 
 
+    if (entrevistando === false) {
+      resultElement.value = recognizedText;
+      console.log(recognizedText)
+      // Verifique se a palavra "Jarvis" está no texto
+      if (recognizedText.toLowerCase().includes('olá')) {
+        BTN_microphone.style.background = "green";
+        // Comece a salvar a pergunta quando "Jarvis" é detectado
+        let array_pergunta = recognizedText.toLowerCase().split('olá');
+        array_pergunta = array_pergunta[array_pergunta.length - 1];
 
-    // Verifique se a palavra "Jarvis" está no texto
-    if (recognizedText.toLowerCase().includes('nai')) {
+        if (array_pergunta.toLowerCase().includes("trocar tema")) {
+          changeTheme();
+        }
+        else {
+          resultElement.value = array_pergunta;
+          console.log(array_pergunta);
+          contexto += 'Candidato:' + array_pergunta;
+          ConsultarOpenAI(array_pergunta);
+          entrevistando=true;
+        }
+
+        // Pare o reconhecimento de voz para economizar recursos
+        recognition.stop();
+      }
+    };
+
+    if(entrevistando===true)
+    {
+      resultElement.value = recognizedText;
       BTN_microphone.style.background = "green";
-      // Comece a salvar a pergunta quando "Jarvis" é detectado
-      let array_pergunta = recognizedText.toLowerCase().split('nai');
-      array_pergunta = array_pergunta[array_pergunta.length - 1];
-
+      let array_pergunta = recognizedText.toLowerCase()
+      if (array_pergunta.toLowerCase().includes("cancelar entrevista")) {
+        entrevistando=false;
+      }
       if (array_pergunta.toLowerCase().includes("trocar tema")) {
         changeTheme();
       }
       else {
         resultElement.value = array_pergunta;
         console.log(array_pergunta);
+        contexto += 'Candidato:' + array_pergunta;
         ConsultarOpenAI(array_pergunta);
+        entrevistando=true;
       }
-
-      // Pare o reconhecimento de voz para economizar recursos
       recognition.stop();
     }
-  };
+  }
 
   // Adicione um evento para reiniciar o reconhecimento após um tempo
   recognition.onend = () => {
